@@ -17,6 +17,7 @@ data.forEach((sightingsList) => {
     })
 });
 
+
 submit.on("click", function() {
   // Prevent the page from refreshing
   d3.event.preventDefault();
@@ -39,6 +40,14 @@ submit.on("click", function() {
         filteredData = filteredData.filter(sighting =>
             sighting.state == stateElement)
     };
+    if(countryElement !== '') {
+        filteredData = filteredData.filter(sighting =>
+            sighting.country == countryElement)
+    };
+    if(shapeElement !== '') {
+        filteredData = filteredData.filter(sighting =>
+            sighting.shape == shapeElement);
+    };
     return filteredData;
   };
 
@@ -46,11 +55,15 @@ submit.on("click", function() {
   var inputElement = d3.select("#datetime");
   var inputCity = d3.select("#city");
   var inputState = d3.select("#state")
+  var inputCountry = d3.select("#country");
+  var inputShape = d3.select("#shape")
 
   // Get the value property of the input element
   var inputDate = inputElement.property("value");
   var cityElement = inputCity.property("value");
   var stateElement = inputState.property("value");
+  var countryElement = inputCountry.property("value");
+  var shapeElement = inputShape.property("value");
 
   // var filteredData = tableData;
   var filteredData = filterData(tableData);
