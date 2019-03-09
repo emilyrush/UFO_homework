@@ -8,7 +8,7 @@ var tbody = d3.select("tbody");
 // Select the submit button
 var submit = d3.select("#filter-btn");
 
-// Show all data
+// Show all sighting data
 data.forEach((sightingsList) => {
     var row = tbody.append("tr");
     Object.entries(sightingsList).forEach(([key,value]) => {
