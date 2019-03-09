@@ -2,6 +2,9 @@
 var tableData = data;
 var tbody = d3.select("tbody");
 
+
+
+// --------------------------------- Dat App --------------------------------
 // Select the submit button
 var submit = d3.select("#filter-btn");
 
@@ -21,14 +24,38 @@ submit.on("click", function() {
   // Clear previous search data
   tbody.html("");
 
+  var filteredData = tableData;
+
+  function filterData() {
+    if(inputDate !== '') {
+      filteredData = filteredData.filter(sighting => 
+          sighting.datetime == inputDate) 
+    };
+    if(cityElement !== '') {
+        filteredData = filteredData.filter(sighting =>
+            sighting.city == cityElement)
+    };
+    if(stateElement !== '') {
+        filteredData = filteredData.filter(sighting =>
+            sighting.state == stateElement)
+    };
+    return filteredData;
+  };
+
   // Select the input element and get the raw HTML node
   var inputElement = d3.select("#datetime");
+  var inputCity = d3.select("#city");
+  var inputState = d3.select("#state")
 
   // Get the value property of the input element
-  var inputValue = inputElement.property("value");
-  console.log(inputValue);
-  console.log(tableData);
-  var filteredData = tableData.filter(sighting => sighting.datetime == inputValue);
+  var inputDate = inputElement.property("value");
+  var cityElement = inputCity.property("value");
+  var stateElement = inputState.property("value");
+
+  // var filteredData = tableData;
+  var filteredData = filterData(tableData);
+
+  console.log(filteredData)
 
   filteredData.forEach((sightingsList) => {
     var row = tbody.append("tr");
@@ -36,5 +63,4 @@ submit.on("click", function() {
         var cell = tbody.append("td");
         cell.text(value);
     })
-})
-});
+})});
